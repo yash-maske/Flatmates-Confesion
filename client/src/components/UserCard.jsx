@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MessageSquare } from 'lucide-react';
-import './UserCard.css'
-const UserCard = ({ toUser, fetchMessages }) => {
+import './UserCard.css';
+
+const UserCard = ({ toUser, fromUser, fetchMessages }) => {
   const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
   const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const sendMessage = async () => {
     if (!message) return;
-    await axios.post(`${url}/api/user/send`, {
-      toUser,
-      message,
-    });
-    setMessage('');
-    fetchMessages();
-    setSent(true);
-    setTimeout(() => setSent(false), 1000);
+
+    try {
+      await axios.post(`${url}/api/user/send`, {
+        toUser,
+        fromUser,
+        message,
+      });
+
+      setMessage('');
+      fetchMessages();
+      setSent(true);
+      setTimeout(() => setSent(false), 1000);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
 
   const scrollToDashboardMessages = () => {

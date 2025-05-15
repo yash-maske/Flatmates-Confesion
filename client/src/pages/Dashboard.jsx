@@ -16,7 +16,7 @@ const users = [
 
 const Dashboard = ({ user }) => {
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false); // Optional: loading state for refresh button
+  const [loading, setLoading] = useState(false);
   const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const fetchMessages = async () => {
@@ -44,7 +44,12 @@ const Dashboard = ({ user }) => {
       {/* User Cards Section */}
       <div className="dashboard-grid">
         {users.map((name) => (
-          <UserCard key={name} toUser={name} fetchMessages={fetchMessages} />
+          <UserCard
+            key={name}
+            toUser={name}
+            fromUser={user} // ✅ Pass current user as sender
+            fetchMessages={fetchMessages}
+          />
         ))}
       </div>
 
@@ -53,9 +58,9 @@ const Dashboard = ({ user }) => {
         🕵️ Anonymous Confessions
       </h2>
 
-      <button 
-        className="refresh-button" 
-        onClick={fetchMessages} 
+      <button
+        className="refresh-button"
+        onClick={fetchMessages}
         disabled={loading}
       >
         {loading ? 'Refreshing...' : '🔄 Refresh Confessions'}
