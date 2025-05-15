@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserCard from '../components/UserCard';
-
+import './Dashboard.css'
 const users = [
   'Yash Maske',
   'Yash Deshmukh',
@@ -15,10 +15,11 @@ const users = [
 
 const Dashboard = ({ user }) => {
   const [messages, setMessages] = useState([]);
+  const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/user/all');
+      const res = await axios.get(`${url}/api/user/all`);
       setMessages(res.data);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
@@ -30,44 +31,38 @@ const Dashboard = ({ user }) => {
   }, []);
 
   return (
-    <div className="p-4 min-h-screen bg-gradient-to-tr from-green-50 via-white to-green-100">
-      <h1 className="text-3xl font-bold text-green-700 mb-6 animate-fadeInUp">
-        👋 Welcome, <span className="text-black">{user}</span>
+    <div className="dashboard-container">
+      <h1 className="dashboard-welcome">
+        👋 Welcome, <span className="dashboard-username">{user}</span>
       </h1>
 
       {/* User Cards Section */}
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 animate-fadeIn">
+      <div className="dashboard-grid">
         {users.map((name) => (
           <UserCard key={name} toUser={name} fetchMessages={fetchMessages} />
         ))}
       </div>
 
       {/* Confessions Section */}
-      <h2
-        id="confessions"
-        className="text-2xl font-semibold text-green-800 mb-4 animate-slideInLeft scroll-mt-20"
-      >
+      <h2 id="confessions" className="confessions-heading">
         🕵️ Anonymous Confessions
       </h2>
 
-      <div className="space-y-3 animate-fadeInUp">
+      <div className="confessions-container">
         {messages.length > 0 ? (
           messages.map((msg) => (
-            <div
-              key={msg._id}
-              className="p-4 rounded-xl border border-green-200 bg-white shadow hover:shadow-lg transition-all duration-300"
-            >
-              <p className="text-sm text-gray-600 mb-1">
-                <strong className="text-green-700">To:</strong> {msg.toUser}
+            <div key={msg._id} className="confession-card">
+              <p className="confession-to">
+                <strong>To:</strong> {msg.toUser}
               </p>
-              <p className="text-gray-800 text-base">{msg.message}</p>
-              <p className="text-right text-xs text-gray-400 mt-2">
+              <p className="confession-message">{msg.message}</p>
+              <p className="confession-time">
                 {new Date(msg.timestamp).toLocaleString()}
               </p>
             </div>
           ))
         ) : (
-          <p className="text-gray-500 italic">No confessions yet. 😶</p>
+          <p className="confession-empty">No confessions yet. 😶</p>
         )}
       </div>
     </div>

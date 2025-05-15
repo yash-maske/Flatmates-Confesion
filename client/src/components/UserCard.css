@@ -1,0 +1,106 @@
+.user-card-container {
+  position: relative;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  background: linear-gradient(to bottom right, #ffffff, #f0fdf4, #dcfce7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.5s ease forwards;
+  transition: transform 0.5s ease;
+}
+
+.user-card-container:hover {
+  transform: scale(1.02);
+}
+
+.confession-icon-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #16a34a;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.confession-icon-btn:hover {
+  color: #15803d;
+}
+
+.user-card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #15803d;
+  margin-bottom: 12px;
+}
+
+.user-card-recipient {
+  color: #000;
+}
+
+.user-card-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #86efac;
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+  resize: none;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.user-card-textarea:focus {
+  border-color: #22c55e;
+  box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
+}
+
+.user-card-send-btn {
+  margin-top: 12px;
+  width: 100%;
+  background-color: #22c55e;
+  color: white;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 6px rgba(34, 197, 94, 0.3);
+}
+
+.user-card-send-btn:hover {
+  background-color: #16a34a;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseOnce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse-animation {
+  animation: pulseOnce 0.8s ease-in-out;
+}
