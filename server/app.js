@@ -11,7 +11,9 @@ const DATABASE_URL = process.env.DATABASE_URI;  // Fixed typo
 const port = process.env.PORT || 8000;         // Ensure default value if PORT is missing
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin : ["http://localhost:5173"]
+}));
 app.use(express.json());
 app.use("/api/user",userRoutes);
 app.use("/api/user",message)
