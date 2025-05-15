@@ -112,3 +112,23 @@
     transform: translateX(0);
   }
 }
+.refresh-button {
+  margin: 0 auto 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: #388e3c;
+}
+
+.refresh-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}

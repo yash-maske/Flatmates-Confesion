@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserCard from '../components/UserCard';
-import './Dashboard.css'
+import './Dashboard.css';
+
 const users = [
   'Yash Maske',
   'Yash Deshmukh',
@@ -15,14 +16,18 @@ const users = [
 
 const Dashboard = ({ user }) => {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false); // Optional: loading state for refresh button
   const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const fetchMessages = async () => {
+    setLoading(true);
     try {
       const res = await axios.get(`${url}/api/user/all`);
       setMessages(res.data);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,6 +52,14 @@ const Dashboard = ({ user }) => {
       <h2 id="confessions" className="confessions-heading">
         🕵️ Anonymous Confessions
       </h2>
+
+      <button 
+        className="refresh-button" 
+        onClick={fetchMessages} 
+        disabled={loading}
+      >
+        {loading ? 'Refreshing...' : '🔄 Refresh Confessions'}
+      </button>
 
       <div className="confessions-container">
         {messages.length > 0 ? (
