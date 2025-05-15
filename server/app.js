@@ -12,8 +12,12 @@ const port = process.env.PORT || 8000;         // Ensure default value if PORT i
 
 const app = express();
 app.use(cors({
-    origin : ["http://localhost:5173"]
+    origin: [
+        "http://localhost:5173",
+        "https://flatmates-confesion-15wz.vercel.app"
+    ]
 }));
+
 
 app.use(express.json());
 app.use("/api/user",userRoutes);
