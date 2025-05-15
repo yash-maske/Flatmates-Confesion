@@ -2,6 +2,10 @@
 import mongoose from 'mongoose';
 
 const MessageSchema = new mongoose.Schema({
+  fromUser: {
+    type: String, // sender name
+    required: true
+  },
   toUser: {
     type: String, // recipient name
     required: true

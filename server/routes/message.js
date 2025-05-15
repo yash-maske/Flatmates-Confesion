@@ -6,16 +6,20 @@ const router = express.Router();
 
 // Send confession
 router.post('/send', async (req, res) => {
-  const { toUser, message } = req.body;
-  if (!toUser || !message) return res.status(400).json({ message: 'All fields required' });
+  const { fromUser, toUser, message } = req.body;
+  if (!fromUser || !toUser || !message) {
+    return res.status(400).json({ message: 'All fields required' });
+  }
 
-  await Message.create({ toUser, message });
+  await Message.create({ fromUser, toUser, message });
   res.json({ message: 'Message sent anonymously' });
 });
 
-// Get messages for all users
+// Get messages for all users (exclude fromUser)
 router.get('/all', async (req, res) => {
-  const messages = await Message.find().sort({ timestamp: -1 });
+  const messages = await Message.find()
+    .sort({ timestamp: -1 })
+    .select('-fromUser'); // exclude fromUser
   res.json(messages);
 });
 
