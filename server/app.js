@@ -15,7 +15,12 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/user",userRoutes);
 app.use("/api/user",message)
-
+app.get('/',(req,res)=>{
+    res.send({
+        activeStatus : true,
+        error : false,
+    })
+})
 
 connectDB(DATABASE_URL);
 
