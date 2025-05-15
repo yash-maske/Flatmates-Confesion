@@ -1,4 +1,3 @@
-// routes/auth.js
 import express from 'express';
 import User from '../models/User.js';
 import dotenv from 'dotenv';
@@ -7,7 +6,7 @@ const router = express.Router();
 dotenv.config();
 
 const COMMON_PASSWORD = process.env.SHARED_PASSWORD;
-console.log(COMMON_PASSWORD);
+console.log('Loaded shared password:', COMMON_PASSWORD);
 
 router.post('/login', async (req, res) => {
   try {
@@ -27,18 +26,22 @@ router.post('/login', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // For simplicity, return user name as token
-    res.json({ message: 'Login successful', name: user.name });
+    // Return user name as a mock token
+    res.status(200).json({ message: 'Login successful', name: user.name });
 
   } catch (error) {
     console.error('Login error:', error);
 
-    // Check for MongoDB-related errors
+    // MongoDB-specific error handling
     if (error.name === 'MongoNetworkError' || error.name === 'MongoServerError') {
       return res.status(503).json({ message: 'Database connection error. Please try again later.' });
     }
 
-    res.status(500).json({ message: 'Internal server error. Please try again later.' });
+    // General internal server error
+    return res.status(500).json({
+      message: 'Internal server error. Please try again later.',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined // Don't expose stack in production
+    });
   }
 });
 
