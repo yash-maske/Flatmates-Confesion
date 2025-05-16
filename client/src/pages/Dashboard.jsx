@@ -40,8 +40,8 @@ const Dashboard = ({ user }) => {
   const filteredMessages = showOnlyUserConfessions
     ? messages.filter((msg) => msg.toUser === user)
     : filterByName === 'All'
-    ? messages
-    : messages.filter((msg) => msg.toUser === filterByName);
+      ? messages
+      : messages.filter((msg) => msg.toUser === filterByName);
 
   return (
     <div className="dashboard-container">
@@ -81,18 +81,6 @@ const Dashboard = ({ user }) => {
       </h2>
 
       <div className="confession-controls">
-        <button
-          className="refresh-button"
-          onClick={() => {
-            setShowOnlyUserConfessions(false);
-            setFilterByName('All');
-            fetchMessages();
-          }}
-          disabled={loading}
-        >
-          {loading ? 'Refreshing...' : '🔄 Refresh Confessions'}
-        </button>
-
         <select
           className="filter-dropdown"
           value={filterByName}
@@ -108,7 +96,20 @@ const Dashboard = ({ user }) => {
             </option>
           ))}
         </select>
+
+        <button
+          className="refresh-button"
+          onClick={() => {
+            setShowOnlyUserConfessions(false);
+            setFilterByName('All');
+            fetchMessages();
+          }}
+          disabled={loading}
+        >
+          {loading ? 'Refreshing...' : '🔄 Refresh Confessions'}
+        </button>
       </div>
+
 
       <div className="confessions-container">
         {filteredMessages.length > 0 ? (
