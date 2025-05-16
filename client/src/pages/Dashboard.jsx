@@ -17,6 +17,7 @@ const users = [
 const Dashboard = ({ user }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showConfessionsModal, setShowConfessionsModal] = useState(false);
   const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const fetchMessages = async () => {
@@ -35,8 +36,20 @@ const Dashboard = ({ user }) => {
     fetchMessages();
   }, []);
 
+  // Filter confessions where toUser matches the current user
+  const userConfessions = messages.filter((msg) => msg.toUser === user);
+
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container relative">
+      {/* Bell Icon for User's Confessions */}
+      <button
+        className="absolute top-4 right-4 text-2xl p-2 bg-gray-100 rounded-full hover:bg-gray-200 focus:outline-none"
+        onClick={() => setShowConfessionsModal(true)}
+        title="View Your Confessions"
+      >
+        🔔
+      </button>
+
       <h1 className="dashboard-welcome">
         👋 Welcome, <span className="dashboard-username">{user}</span>
       </h1>
@@ -47,7 +60,7 @@ const Dashboard = ({ user }) => {
           <UserCard
             key={name}
             toUser={name}
-            fromUser={user} // ✅ Pass current user as sender
+            fromUser={user}
             fetchMessages={fetchMessages}
           />
         ))}
@@ -83,6 +96,38 @@ const Dashboard = ({ user }) => {
           <p className="confession-empty">No confessions yet. 😶</p>
         )}
       </div>
+
+      {/* Modal for User's Confessions */}
+      {showConfessionsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Your Confessions</h2>
+              <button
+                className="text-2xl focus:outline-none"
+                onClick={() => setShowConfessionsModal(false)}
+              >
+                &times;
+              </button>
+            </div>
+            {userConfessions.length > 0 ? (
+              userConfessions.map((msg) => (
+                <div key={msg._id} className="border-b py-2">
+                  <p className="text-sm">
+                    <strong>To:</strong> {msg.toUser}
+                  </p>
+                  <p className="text-gray-700">{msg.message}</p>
+                  <p className="text-xs text-gray-500">
+                    {new Date(msg.timestamp).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-600">No confessions addressed to you yet. 😶</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
