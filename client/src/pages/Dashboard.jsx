@@ -24,7 +24,7 @@ const Dashboard = ({ user }) => {
   const fetchMessages = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${url}/api/user/all`);
+      const res = await axios.get(`${url}/api/message/all`);
       setMessages(res.data);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
