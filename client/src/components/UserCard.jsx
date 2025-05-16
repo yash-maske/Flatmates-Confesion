@@ -9,7 +9,7 @@ const UserCard = ({ toUser, fromUser, fetchMessages }) => {
   const url = "https://flatmates-confesion-git-main-yash-maskes-projects-93f4ac16.vercel.app";
 
   const sendMessage = async () => {
-    if (!message) return;
+    if (!message.trim()) return;
 
     try {
       await axios.post(`${url}/api/user/send`, {
@@ -47,7 +47,7 @@ const UserCard = ({ toUser, fromUser, fetchMessages }) => {
       </h2>
 
       <textarea
-        rows="3"
+        rows="4"
         placeholder="Write your confession..."
         className="user-card-textarea"
         value={message}
