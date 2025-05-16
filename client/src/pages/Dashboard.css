@@ -132,3 +132,16 @@
   background-color: #a5d6a7;
   cursor: not-allowed;
 }
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bell-icon {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
