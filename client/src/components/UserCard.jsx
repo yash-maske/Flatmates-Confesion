@@ -12,7 +12,7 @@ const UserCard = ({ toUser, fromUser, fetchMessages }) => {
     if (!message.trim()) return;
 
     try {
-      await axios.post(`${url}/api/user/send`, {
+      await axios.post(`${url}/api/message/send`, {
         toUser,
         fromUser,
         message,
