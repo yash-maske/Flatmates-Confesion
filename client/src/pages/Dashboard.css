@@ -5,6 +5,14 @@
   font-family: Arial, sans-serif;
 }
 
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .dashboard-welcome {
   font-size: 2rem;
   font-weight: bold;
@@ -32,6 +40,54 @@
   margin-bottom: 1rem;
   scroll-margin-top: 5rem;
   animation: slideInLeft 0.5s ease-in;
+}
+
+.confession-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.refresh-button {
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: #388e3c;
+}
+
+.refresh-button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.filter-dropdown {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #94a3b8;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  animation: dropdownFadeIn 0.4s ease-in-out;
+}
+
+.filter-dropdown:hover,
+.filter-dropdown:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
 }
 
 .confessions-container {
@@ -112,36 +168,32 @@
     transform: translateX(0);
   }
 }
-.refresh-button {
-  margin: 0 auto 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.refresh-button:hover:not(:disabled) {
-  background-color: #388e3c;
-}
+/* Responsive Design */
+@media (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.refresh-button:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .confession-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.bell-icon {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
+  .refresh-button,
+  .filter-dropdown {
+    width: 100%;
+  }
 }
-
